@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { DAYS } from '@/const/days';
+import { Empty } from '@/components/Empty';
 import { Spacer } from '@/components/Spacer';
 import { useAuth } from '@/hooks/useAuth';
 import { Lecture, useLectures } from '@/hooks/useLectures';
@@ -49,6 +50,47 @@ const Page: NextPage = () => {
     <div style={styles.container}>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography fontSize={24} sx={{ fontWeight: 'bold' }}>
+          Lectures
+        </Typography>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          {deleting !== 'lecture' && (
+            <Button variant="contained" onClick={() => router.push('/new-lecture')}>
+              <FaPlus color="white" />
+            </Button>
+          )}
+          <Spacer w={20} />
+          {deleting === 'lecture' ? (
+            <Button variant="contained" sx={{ backgroundColor: 'green' }} onClick={() => setDeleting(null)}>
+              <FaCheck color="white" />
+            </Button>
+          ) : (
+            <Button variant="contained" sx={{ backgroundColor: 'gray' }} onClick={() => setDeleting('lecture')}>
+              <FaTrash color="white" />
+            </Button>
+          )}
+        </div>
+      </div>
+      <ul>
+        {lectures &&
+          lectures.map((lecture) => (
+            <li key={lecture.id} style={styles.lecture}>
+              <p>{lecture.name}</p>
+              {deleting === 'lecture' ? (
+                <div style={{ paddingTop: 12, paddingBottom: 12 }}>
+                  <FaTrash size={24} color="red" style={{ cursor: 'pointer' }} onClick={() => deleteLecture(lecture)} />
+                </div>
+              ) : (
+                <p>
+                  {DAYS[lecture.dayId]} {lecture.period}限
+                </p>
+              )}
+            </li>
+          ))}
+        {lectures?.length === 0 && <Empty>まだ講義がありません。まずは講義を登録しましょう。</Empty>}
+      </ul>
+      <hr style={styles.hr} />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Typography fontSize={24} sx={{ fontWeight: 'bold' }}>
           Reports
         </Typography>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -90,46 +132,6 @@ const Page: NextPage = () => {
                 </div>
               ) : (
                 <p style={styles.date}>{dayjs(report.deadline.toDate()).format('M/D H:m')}</p>
-              )}
-            </li>
-          ))}
-      </ul>
-      <hr style={styles.hr} />
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography fontSize={24} sx={{ fontWeight: 'bold' }}>
-          Lectures
-        </Typography>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          {deleting !== 'lecture' && (
-            <Button variant="contained" onClick={() => router.push('/new-lecture')}>
-              <FaPlus color="white" />
-            </Button>
-          )}
-          <Spacer w={20} />
-          {deleting === 'lecture' ? (
-            <Button variant="contained" sx={{ backgroundColor: 'green' }} onClick={() => setDeleting(null)}>
-              <FaCheck color="white" />
-            </Button>
-          ) : (
-            <Button variant="contained" sx={{ backgroundColor: 'gray' }} onClick={() => setDeleting('lecture')}>
-              <FaTrash color="white" />
-            </Button>
-          )}
-        </div>
-      </div>
-      <ul>
-        {lectures &&
-          lectures.map((lecture) => (
-            <li key={lecture.id} style={styles.lecture}>
-              <p>{lecture.name}</p>
-              {deleting === 'lecture' ? (
-                <div style={{ paddingTop: 12, paddingBottom: 12 }}>
-                  <FaTrash size={24} color="red" style={{ cursor: 'pointer' }} onClick={() => deleteLecture(lecture)} />
-                </div>
-              ) : (
-                <p>
-                  {DAYS[lecture.dayId]} {lecture.period}限
-                </p>
               )}
             </li>
           ))}

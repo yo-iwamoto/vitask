@@ -25,7 +25,7 @@ export const Layout: React.VFC<Props> = ({ children }) => {
       <AppBar position="fixed">
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography fontSize={24} style={{ color: 'white' }}>
-            Vitask
+            vitask
           </Typography>
           {user && <FaSignOutAlt color="white" onClick={() => signOut()} style={{ cursor: 'pointer' }} />}
         </Toolbar>
