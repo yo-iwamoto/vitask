@@ -47,7 +47,6 @@ const Page: NextPage = () => {
 
   return (
     <div style={styles.container}>
-      <img src="/copilot.png" height={80} />
       <form onSubmit={onSubmit} style={styles.form}>
         <TextField
           type="email"
