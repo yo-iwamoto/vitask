@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { DAYS } from '@/const/days';
 import { Empty } from '@/components/Empty';
 import { Spacer } from '@/components/Spacer';
@@ -15,7 +15,6 @@ import { Button, Typography } from '@mui/material';
 import { FaCheck, FaPlus, FaTrash } from 'react-icons/fa';
 
 const Page: NextPage = () => {
-  const router = useRouter();
   const { withLoading } = useLoading();
 
   useAuth(true);
@@ -54,9 +53,11 @@ const Page: NextPage = () => {
         </Typography>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           {deleting !== 'lecture' && (
-            <Button variant="contained" onClick={() => router.push('/new-lecture')}>
-              <FaPlus color="white" />
-            </Button>
+            <Link href="/new-lecture">
+              <Button variant="contained">
+                <FaPlus color="white" />
+              </Button>
+            </Link>
           )}
           <Spacer w={20} />
           {deleting === 'lecture' ? (
@@ -95,9 +96,11 @@ const Page: NextPage = () => {
         </Typography>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           {deleting !== 'report' && (
-            <Button variant="contained" onClick={() => router.push('/new-report')}>
-              <FaPlus color="white" />
-            </Button>
+            <Link href="/new-report">
+              <Button variant="contained">
+                <FaPlus color="white" />
+              </Button>
+            </Link>
           )}
           <Spacer w={20} />
           {deleting === 'report' ? (
