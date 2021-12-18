@@ -14,3 +14,5 @@ const app =
 
 export const auth = app.auth();
 export const firestore = app.firestore();
+
+export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();

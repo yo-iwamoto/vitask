@@ -10,8 +10,7 @@ import { useLoading } from '@/hooks/useLoading';
 import { Report, useReports } from '@/hooks/useReports';
 import { dayjs } from '@/plugins/dayjs';
 import { firestore } from '@/plugins/firebase';
-import { styles } from '@/styles/dashboard';
-import { Button, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { FaCheck, FaPlus, FaTrash } from 'react-icons/fa';
 
 const Page: NextPage = () => {
@@ -46,7 +45,7 @@ const Page: NextPage = () => {
   const [deleting, setDeleting] = useState<'report' | 'lecture' | null>(null);
 
   return (
-    <div style={styles.container}>
+    <Box sx={{ mt: 4, mx: 4 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography fontSize={24} sx={{ fontWeight: 'bold' }}>
           Lectures
@@ -74,7 +73,7 @@ const Page: NextPage = () => {
       <ul>
         {lectures &&
           lectures.map((lecture) => (
-            <li key={lecture.id} style={styles.lecture}>
+            <li key={lecture.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <p>{lecture.name}</p>
               {deleting === 'lecture' ? (
                 <div style={{ paddingTop: 12, paddingBottom: 12 }}>
@@ -89,7 +88,9 @@ const Page: NextPage = () => {
           ))}
         {lectures?.length === 0 && <Empty>まだ講義がありません。まずは講義を登録しましょう。</Empty>}
       </ul>
-      <hr style={styles.hr} />
+      <Box sx={{ my: 4 }}>
+        <hr />
+      </Box>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography fontSize={24} sx={{ fontWeight: 'bold' }}>
           Reports
@@ -117,10 +118,13 @@ const Page: NextPage = () => {
       <ul>
         {reports &&
           reports.map((report) => (
-            <li
+            <Box
               key={report.id}
               style={{
-                ...styles.report,
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                cursor: 'pointer',
                 textDecoration: report.done ? 'line-through' : 'none',
                 color: report.done ? 'grey' : 'black',
               }}
@@ -134,12 +138,12 @@ const Page: NextPage = () => {
                   <FaTrash size={24} color="red" style={{ cursor: 'pointer' }} onClick={() => deleteReport(report)} />
                 </div>
               ) : (
-                <p style={styles.date}>{dayjs(report.deadline.toDate()).format('M/D H:m')}</p>
+                <p style={{ letterSpacing: 3 }}>{dayjs(report.deadline.toDate()).format('M/D H:m')}</p>
               )}
-            </li>
+            </Box>
           ))}
       </ul>
-    </div>
+    </Box>
   );
 };
 

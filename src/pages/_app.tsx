@@ -2,7 +2,6 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Layout } from '@/components/Layout';
 import { theme } from '@/plugins/mui';
-import '@/styles/global.css';
 import { ThemeProvider } from '@mui/material';
 import { RecoilRoot } from 'recoil';
 
