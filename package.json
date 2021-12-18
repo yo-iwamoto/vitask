@@ -1,0 +1,31 @@
+{
+  "name": "report-manager",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@hookform/resolvers": "^2.8.5",
+    "@mui/material": "^5.2.4",
+    "firebase": "^9.6.1",
+    "next": "^12.0.7",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.22.2",
+    "react-spinners": "^0.11.0",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^3.1.1",
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "prettier": "^2.5.1",
+    "typescript": "^4.5.4"
+  }
+}

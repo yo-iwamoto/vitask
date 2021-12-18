@@ -1,0 +1,18 @@
+{
+  "semi": true,
+  "printWidth": 120,
+  "trailingComma": "es5",
+  "singleQuote": true,
+  "importOrder": [
+    "^react$",
+    "^next$",
+    "^next/(.*)$",
+    "^@/const/(.*)$",
+    "^@/components/(.*)$",
+    "^@/utils/(.*)$",
+    "^@/hooks/(.*)$",
+    "^@/state/(.*)$",
+    "^openapi$",
+    "^(.*)$"
+  ]
+}

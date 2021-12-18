@@ -1,0 +1,4 @@
+.next/
+yarn.lock
+*.log
+node_modules/
