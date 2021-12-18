@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useAuth } from '@/hooks/useAuth';
 import { useLoading } from '@/hooks/useLoading';
 import { globalState } from '@/state/global';
@@ -24,9 +25,11 @@ export const Layout: React.VFC<Props> = ({ children }) => {
     <>
       <AppBar position="fixed">
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography fontSize={24} style={{ color: 'white' }}>
-            vitask
-          </Typography>
+          <Link href={user ? '/dashboard' : '/'}>
+            <Typography fontSize={24} style={{ color: 'white', cursor: 'pointer' }}>
+              vitask
+            </Typography>
+          </Link>
           {user && <FaSignOutAlt color="white" onClick={() => signOut()} style={{ cursor: 'pointer' }} />}
         </Toolbar>
       </AppBar>
