@@ -8,9 +8,8 @@ import { Spacer } from '@/components/Spacer';
 import { useAuth } from '@/hooks/useAuth';
 import { useLoading } from '@/hooks/useLoading';
 import { auth, firestore } from '@/plugins/firebase';
-import { styles } from '@/styles/new-lecture';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -52,20 +51,20 @@ const Page: NextPage = () => {
   );
 
   return (
-    <div style={styles.container}>
+    <Box sx={{ mt: 6, width: 400, mx: 'auto', textAlign: 'center' }}>
       <Typography fontSize={20}>授業を登録</Typography>
       <Spacer h={20} />
       <form onSubmit={onSubmit}>
         <TextField
+          fullWidth
           label="授業名"
           {...register('name')}
-          sx={styles.textField}
           error={!!errors.name?.message}
           helperText={errors.name?.message ?? ''}
         />
         <FormControl fullWidth sx={{ marginTop: 4 }}>
           <InputLabel htmlFor="dayId">曜日</InputLabel>
-          <Select label="曜日" {...register('dayId')} sx={styles.select} error={!!errors.dayId?.message}>
+          <Select label="曜日" {...register('dayId')} sx={{ textAlign: 'left' }} error={!!errors.dayId?.message}>
             {DAYS.map((day, index) => (
               <MenuItem key={day} value={index}>
                 {day}
@@ -75,7 +74,7 @@ const Page: NextPage = () => {
         </FormControl>
         <FormControl fullWidth sx={{ marginTop: 4 }}>
           <InputLabel htmlFor="period">時限</InputLabel>
-          <Select label="時限" {...register('period')} sx={styles.select} error={!!errors.period?.message}>
+          <Select label="時限" {...register('period')} sx={{ textAlign: 'left' }} error={!!errors.period?.message}>
             {PERIODS.map((day, index) => (
               <MenuItem key={day} value={index + 1}>
                 {day}
@@ -84,13 +83,13 @@ const Page: NextPage = () => {
           </Select>
         </FormControl>
         <Spacer h={20} />
-        <Button type="submit" variant="contained" size="large" sx={styles.submitButton}>
+        <Button type="submit" variant="contained" size="large" sx={{ color: 'white' }}>
           登録
         </Button>
         <Spacer h={20} />
         <Link href="/dashboard">キャンセル</Link>
       </form>
-    </div>
+    </Box>
   );
 };
 

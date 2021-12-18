@@ -10,9 +10,8 @@ import { useLectures } from '@/hooks/useLectures';
 import { useLoading } from '@/hooks/useLoading';
 import { dayjs } from '@/plugins/dayjs';
 import { auth, firestore } from '@/plugins/firebase';
-import { styles } from '@/styles/new-report';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -80,13 +79,18 @@ const Page: NextPage = () => {
   }, [lectures]);
 
   return (
-    <div style={styles.container}>
+    <Box sx={{ mt: 4, width: 400, mx: 'auto', textAlign: 'center' }}>
       <Typography fontSize={20}>レポートを登録</Typography>
       <Spacer h={20} />
       <form onSubmit={onSubmit}>
         <FormControl fullWidth>
           <InputLabel htmlFor="lectureId">授業</InputLabel>
-          <Select label="授業" {...register('lectureId')} sx={styles.select} error={!!errors.lectureId?.message}>
+          <Select
+            label="授業"
+            {...register('lectureId')}
+            sx={{ textAlign: 'left' }}
+            error={!!errors.lectureId?.message}
+          >
             {lectures &&
               lectures.map((lecture) => (
                 <MenuItem key={lecture.name} value={lecture.id}>
@@ -98,9 +102,9 @@ const Page: NextPage = () => {
         <ErrorMessage>{errors.lectureId?.message}</ErrorMessage>
         <Spacer h={32} />
         <TextField
+          fullWidth
           label="レポート名"
           {...register('name')}
-          sx={styles.textField}
           error={!!errors.name?.message}
           helperText={errors.name?.message ?? ''}
           defaultValue="レポート"
@@ -122,13 +126,13 @@ const Page: NextPage = () => {
           defaultValue={today.format('hh:mm')}
         />
         <Spacer h={32} />
-        <Button type="submit" variant="contained" size="large" sx={styles.submitButton}>
+        <Button type="submit" variant="contained" size="large" sx={{ color: 'white' }}>
           登録
         </Button>
         <Spacer h={20} />
         <Link href="/dashboard">キャンセル</Link>
       </form>
-    </div>
+    </Box>
   );
 };
 
