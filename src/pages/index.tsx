@@ -7,7 +7,7 @@ import { Button, Typography } from '@mui/material';
 const Page: NextPage = () => {
   return (
     <div style={styles.container}>
-      <Typography sx={styles.title}>すごい課題通知</Typography>
+      <Typography sx={styles.title}>vitask</Typography>
       <Spacer h={60} />
       <Link href="/signup">
         <Button type="button" variant="contained" sx={styles.button} size="large">
