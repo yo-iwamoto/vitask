@@ -9,7 +9,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useLectures } from '@/hooks/useLectures';
 import { useLoading } from '@/hooks/useLoading';
 import { dayjs } from '@/plugins/dayjs';
-import { auth, firestore } from '@/plugins/firebase';
+import { firestore } from '@/plugins/firebase';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
@@ -36,7 +36,7 @@ const schema = yup
 
 const Page: NextPage = () => {
   const router = useRouter();
-  useAuth(true);
+  const { user } = useAuth(true);
 
   const { withLoading } = useLoading();
 
@@ -49,8 +49,7 @@ const Page: NextPage = () => {
 
   const onSubmit = handleSubmit((data) =>
     withLoading(async () => {
-      const uid = auth.currentUser?.uid;
-      if (!uid) return;
+      if (!user) return;
 
       const deadline = new Date(data.deadlineDate);
       deadline.setHours(Number(data.deadlineTime.slice(0, 2)));
@@ -60,12 +59,13 @@ const Page: NextPage = () => {
       if (!lectureName) return;
 
       await firestore.collection('reports').add({
-        uid,
+        uid: user.uid,
         deadline,
         name: data.name,
         lectureId: data.lectureId,
         lectureName,
       });
+
       router.push('/dashboard');
     })
   );

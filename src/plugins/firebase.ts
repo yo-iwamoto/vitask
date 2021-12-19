@@ -14,5 +14,8 @@ const app =
 
 export const auth = app.auth();
 export const firestore = app.firestore();
+const functions = app.functions();
+functions.useEmulator('localhost', 5001);
+export { functions };
 
 export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
