@@ -1,25 +1,16 @@
 import Link from 'next/link';
-import { useAuth } from '@/hooks/useAuth';
-import { useLoading } from '@/hooks/useLoading';
-import { globalState } from '@/state/global';
-import { auth } from '@/plugins/firebase';
+import { useHooks } from './Layout.hook';
 import { css } from '@emotion/react';
-import { AppBar, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Toolbar, Typography } from '@mui/material';
 import { FaSignOutAlt } from 'react-icons/fa';
 import { ClockLoader } from 'react-spinners';
-import { useRecoilValue } from 'recoil';
 
 type Props = {
   children: React.ReactNode;
 };
 
 export const Layout: React.VFC<Props> = ({ children }) => {
-  const { isLoading } = useRecoilValue(globalState);
-  const { user } = useAuth();
-
-  const { withLoading } = useLoading();
-
-  const signOut = () => withLoading(async () => await auth.signOut());
+  const { isLoading, user, signOut } = useHooks();
 
   return (
     <>
@@ -33,7 +24,9 @@ export const Layout: React.VFC<Props> = ({ children }) => {
           {user && <FaSignOutAlt color="white" onClick={() => signOut()} style={{ cursor: 'pointer' }} />}
         </Toolbar>
       </AppBar>
-      <main style={{ paddingTop: 64 }}>{children}</main>
+      <main>
+        <Box sx={{ py: 8, px: 2 }}>{children}</Box>
+      </main>
       {isLoading && (
         <ClockLoader
           color={'#ffffff'}

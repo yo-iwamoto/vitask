@@ -1,48 +1,15 @@
-import { useState } from 'react';
 import type { NextPage } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { DAYS } from '@/const/days';
-import { Empty } from '@/components/Empty';
 import { Spacer } from '@/components/Spacer';
-import { useAuth } from '@/hooks/useAuth';
-import { Lecture, useLectures } from '@/hooks/useLectures';
-import { useLoading } from '@/hooks/useLoading';
-import { Report, useReports } from '@/hooks/useReports';
+import { usePage } from './hook';
 import { dayjs } from '@/plugins/dayjs';
-import { firestore } from '@/plugins/firebase';
 import { Box, Button, Typography } from '@mui/material';
 import { FaCheck, FaPlus, FaTrash } from 'react-icons/fa';
 
 const Page: NextPage = () => {
-  const { withLoading } = useLoading();
-
-  useAuth(true);
-
-  const { data: reports, mutate: mutateReports } = useReports();
-  const { data: lectures, mutate: mutateLectures } = useLectures();
-
-  const finishReport = (report: Report) =>
-    withLoading(async () => {
-      const res = await firestore.collection('reports').doc(report.id).get();
-      res.exists && (await res.ref.set({ done: !report.done }, { merge: true }));
-      await mutateReports();
-    });
-
-  const deleteReport = async (report: Report) => {
-    withLoading(async () => {
-      await firestore.collection('reports').doc(report.id).delete();
-      await mutateReports();
-    });
-  };
-
-  const deleteLecture = async (lecture: Lecture) => {
-    withLoading(async () => {
-      await firestore.collection('lectures').doc(lecture.id).delete();
-      await mutateLectures();
-    });
-  };
-
-  const [deleting, setDeleting] = useState<'report' | 'lecture' | null>(null);
+  const { lectures, reports, deleteLecture, finishReport, deleteReport, deleting, setDeleting } = usePage();
 
   return (
     <Box sx={{ mt: 4, mx: 4 }}>
@@ -86,7 +53,14 @@ const Page: NextPage = () => {
               )}
             </li>
           ))}
-        {lectures?.length === 0 && <Empty>まだ講義がありません。まずは講義を登録しましょう。</Empty>}
+        {lectures?.length === 0 && deleting !== 'lecture' && (
+          <Box style={{ display: 'flex', flexDirection: 'column', textAlign: 'center' }}>
+            <Box sx={{ display: 'inline-block' }}>
+              <Image src="/empty.png" width={300} height={300} />
+            </Box>
+            <p>まだ講義がありません。まずは講義を登録しましょう。</p>
+          </Box>
+        )}
       </ul>
       <Box sx={{ my: 4 }}>
         <hr />

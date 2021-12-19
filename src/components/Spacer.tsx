@@ -1,13 +1,7 @@
-type Props = {
-  h?: number;
-  w?: number;
-};
+import { Box } from '@mui/material';
 
-export const Spacer: React.VFC<Props> = ({ h, w }) => {
-  if (h !== undefined) {
-    return <div style={{ height: `${h}px` }} />;
-  } else if (w !== undefined) {
-    return <span style={{ display: 'inline-block', width: `${w}px` }} />;
-  }
-  return <span />;
+type Props = { h: number } | { w: number };
+
+export const Spacer: React.VFC<Props> = (props) => {
+  return <Box sx={'h' in props ? { height: `${props.h}px` } : { display: 'inline-block', width: `${props.w}px` }} />;
 };

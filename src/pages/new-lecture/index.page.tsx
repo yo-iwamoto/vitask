@@ -1,54 +1,13 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { DAYS } from '@/const/days';
-import { MESSAGES } from '@/const/messages';
 import { PERIODS } from '@/const/periods';
 import { Spacer } from '@/components/Spacer';
-import { useAuth } from '@/hooks/useAuth';
-import { useLoading } from '@/hooks/useLoading';
-import { auth, firestore } from '@/plugins/firebase';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { usePage } from './hook';
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
-
-type Form = {
-  name: string;
-  dayId: number;
-  period: number;
-};
-
-const schema = yup
-  .object()
-  .required(MESSAGES.required)
-  .shape({
-    name: yup.string().required(MESSAGES.required),
-    dayId: yup.number().required(MESSAGES.required),
-    period: yup.number().required(MESSAGES.required),
-  });
 
 const Page: NextPage = () => {
-  const router = useRouter();
-  useAuth(true);
-
-  const { withLoading } = useLoading();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Form>({ resolver: yupResolver(schema) });
-
-  const onSubmit = handleSubmit((data) =>
-    withLoading(async () => {
-      const uid = auth.currentUser?.uid;
-      if (!uid) return;
-
-      await firestore.collection('lectures').add({ uid, ...data });
-      router.push('/dashboard');
-    })
-  );
+  const { register, errors, onSubmit } = usePage();
 
   return (
     <Box sx={{ mt: 6, width: 400, mx: 'auto', textAlign: 'center' }}>
