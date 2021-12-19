@@ -11,8 +11,11 @@ const Page: NextPage = () => {
 
   const signInWithGoogle = () =>
     withLoading(async () => {
-      const res = await auth.signInWithPopup(googleAuthProvider).catch((_err) => alert('サインインに失敗しました'));
-      if (!res) return;
+      const res = await auth.signInWithPopup(googleAuthProvider).catch((err) => {
+        alert('サインインに失敗しました');
+        console.log(err);
+      });
+      if (!res?.user) return;
 
       router.push('/dashboard');
     });
@@ -28,12 +31,8 @@ const Page: NextPage = () => {
     >
       <Typography sx={{ fontSize: 60 }}>vitask</Typography>
       <Typography sx={{ textAlign: 'center', fontSize: 24 }}>
-        <Typography paragraph noWrap fontSize={20} sx={{ display: 'inline' }}>
-          大学生のための
-        </Typography>
-        <Typography paragraph noWrap fontSize={20} sx={{ display: 'inline' }}>
-          簡単レポート管理術
-        </Typography>
+        <span style={{ display: 'inline', whiteSpace: 'nowrap' }}>大学生のための</span>
+        <span style={{ display: 'inline', whiteSpace: 'nowrap' }}>簡単レポート管理術</span>
       </Typography>
       <Image src="/top.png" width={300} height={300} />
       <Box
