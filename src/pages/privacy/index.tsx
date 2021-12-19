@@ -19,15 +19,13 @@ const Page: NextPage = () => {
       <ul>
         <li>利用者がフォームに入力する情報</li>
         <li>利用者のメールアドレス</li>
-        <li>利用者が一般公開している個人情報</li>
-        <li>利用者の Google カレンダーのイベントに関する情報</li>
+        <li>利用者がGoogleアカウントに関して一般公開している個人情報</li>
       </ul>
       <Typography variant="h3" fontSize={24} sx={{ pt: 2 }}>
         3. 利用目的
       </Typography>
       <ul>
         <li>ユーザーアカウントの作成・管理のため</li>
-        <li>Google カレンダーへの課題締切日登録及びリマインダ設定のため</li>
         <li>サービス改善のため</li>
       </ul>
       <Typography variant="h3" fontSize={24} sx={{ pt: 2 }}>

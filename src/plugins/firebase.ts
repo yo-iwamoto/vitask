@@ -3,12 +3,12 @@ import firebase from 'firebase';
 const app =
   firebase.apps.length === 0
     ? firebase.initializeApp({
-        apiKey: 'AIzaSyCWCMOpkTSfpf8sgS6eU5XBYpXc1eVm1tY',
-        authDomain: 'report-manager-3480d.firebaseapp.com',
-        projectId: 'report-manager-3480d',
-        storageBucket: 'report-manager-3480d.appspot.com',
-        messagingSenderId: '105914103596',
-        appId: '1:105914103596:web:5d152a68aa5a1f3f731e89',
+        apiKey: 'AIzaSyDerS2KN0xDOILAgJb78f8JDma5EYHXiYQ',
+        authDomain: 'vitask-dd803.firebaseapp.com',
+        projectId: 'vitask-dd803',
+        storageBucket: 'vitask-dd803.appspot.com',
+        messagingSenderId: '362182604559',
+        appId: '1:362182604559:web:48992e5cba486e465d307a',
       })
     : firebase.app();
 
