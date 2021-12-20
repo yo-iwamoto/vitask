@@ -1,0 +1,10 @@
+{
+  "theme_color": "#80C0E0",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/?source=pwa",
+  "name": "vitask",
+  "short_name": "vitask",
+  "description": "大学生のための簡単レポート管理術"
+}
