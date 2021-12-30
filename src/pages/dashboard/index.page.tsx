@@ -17,7 +17,6 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Button onClick={call}>送信</Button>
       {!isNotifyAPIAuthorized && (
         <Card sx={{ borderRadius: 2, backgroundColor: '#f4f4f4', p: 2, mt: 4 }}>
           <MuiLink onClick={pushToRegisterPage} sx={{ cursor: 'pointer', display: 'inline-block' }}>
