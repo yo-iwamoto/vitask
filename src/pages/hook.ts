@@ -5,7 +5,9 @@ import { auth, googleAuthProvider } from '@/plugins/firebase';
 
 export const usePage = () => {
   const router = useRouter();
+
   const { withLoading } = useLoading();
+
   const { user } = useAuth();
 
   const signIn = () =>
