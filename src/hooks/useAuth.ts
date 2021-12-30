@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { auth } from '@/plugins/firebase';
+import { auth } from '@/lib/firebase';
 import firebase from 'firebase';
 
 export const useAuth = (require?: boolean) => {

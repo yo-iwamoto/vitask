@@ -1,48 +1,46 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { useAuth } from '@/hooks/useAuth';
-import { Lecture, useLectures } from '@/hooks/useLectures';
+import { useLectures } from '@/hooks/useLectures';
 import { useLoading } from '@/hooks/useLoading';
-import { Report, useReports } from '@/hooks/useReports';
-import { firestore } from '@/plugins/firebase';
+import { useNotifyAPIAuthorization } from '@/hooks/useNotifyAPIAuthorization';
+import { useToast } from '@/hooks/useToast';
+import { firestore } from '@/lib/firebase';
+import type { Lecture } from '@/types';
 
 export const usePage = () => {
+  const router = useRouter();
+
   const { withLoading } = useLoading();
+
+  const { showToast } = useToast();
 
   useAuth(true);
 
-  const { data: reports, mutate: mutateReports } = useReports();
   const { data: lectures, mutate: mutateLectures } = useLectures();
-
-  const finishReport = (report: Report) =>
-    withLoading(async () => {
-      const res = await firestore.collection('reports').doc(report.id).get();
-      res.exists && (await res.ref.set({ done: !report.done }, { merge: true }));
-      await mutateReports();
-    });
-
-  const deleteReport = async (report: Report) => {
-    withLoading(async () => {
-      await firestore.collection('reports').doc(report.id).delete();
-      await mutateReports();
-    });
-  };
 
   const deleteLecture = async (lecture: Lecture) => {
     withLoading(async () => {
       await firestore.collection('lectures').doc(lecture.id).delete();
+      showToast({ severity: 'error', message: '講義を削除しました' });
       await mutateLectures();
     });
   };
 
   const [deleting, setDeleting] = useState<'report' | 'lecture' | null>(null);
 
+  const { isNotifyAPIAuthorized } = useNotifyAPIAuthorization();
+
+  const pushToRegisterPage = () => {
+    router.push('/register-notification');
+  };
+
   return {
     lectures,
-    reports,
-    finishReport,
-    deleteReport,
     deleteLecture,
     deleting,
     setDeleting,
+    isNotifyAPIAuthorized,
+    pushToRegisterPage,
   };
 };

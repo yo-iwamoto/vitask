@@ -1,11 +1,11 @@
 import { useAuth } from '@/hooks/useAuth';
 import { useLoading } from '@/hooks/useLoading';
-import { globalState } from '@/state/global';
-import { auth } from '@/plugins/firebase';
+import { loadingState } from '@/state/loading';
+import { auth } from '@/lib/firebase';
 import { useRecoilValue } from 'recoil';
 
 export const useHooks = () => {
-  const { isLoading } = useRecoilValue(globalState);
+  const { isLoading } = useRecoilValue(loadingState);
   const { user } = useAuth();
 
   const { withLoading } = useLoading();

@@ -11,9 +11,9 @@ const Page: NextPage = () => {
 
   return (
     <Box sx={{ mt: 6, width: 400, mx: 'auto', textAlign: 'center' }}>
-      <Typography fontSize={20}>授業を登録</Typography>
+      <Typography fontSize={20}>講義を登録</Typography>
       <Spacer h={20} />
-      <form onSubmit={onSubmit}>
+      <Box component="form" onSubmit={onSubmit}>
         <TextField
           fullWidth
           label="授業名"
@@ -47,7 +47,7 @@ const Page: NextPage = () => {
         </Button>
         <Spacer h={20} />
         <Link href="/dashboard">キャンセル</Link>
-      </form>
+      </Box>
     </Box>
   );
 };

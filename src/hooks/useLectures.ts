@@ -1,14 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
-import { firestore } from '@/plugins/firebase';
-
-export type Lecture = {
-  id: string;
-  uid: string;
-  name: string;
-  dayId: '0' | '1' | '2' | '3' | '4' | '5' | '6';
-  period: 1 | 2 | 3 | 4 | 5 | 6;
-};
+import { firestore } from '@/lib/firebase';
+import type { Lecture } from '@/types';
 
 export const useLectures = () => {
   const { user } = useAuth();
@@ -21,8 +14,7 @@ export const useLectures = () => {
         .where('uid', '==', user.uid)
         .get()
         .then((res) => {
-          const dataset = res.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as Lecture[];
-          setData(dataset);
+          setData(res.docs.map((doc) => ({ ...doc.data(), id: doc.id })) as Lecture[]);
         });
   };
 

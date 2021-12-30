@@ -14,8 +14,12 @@ const app =
 
 export const auth = app.auth();
 export const firestore = app.firestore();
-const functions = app.functions();
-functions.useEmulator('localhost', 5001);
+const functions = app.functions('asia-northeast2');
+
+if (process.env.NODE_ENV === 'development') {
+  functions.useEmulator('localhost', 5001);
+}
+
 export { functions };
 
 export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();

@@ -1,11 +1,13 @@
 import { useRouter } from 'next/router';
 import { useAuth } from '@/hooks/useAuth';
 import { useLoading } from '@/hooks/useLoading';
-import { auth, googleAuthProvider } from '@/plugins/firebase';
+import { auth, googleAuthProvider } from '@/lib/firebase';
 
 export const usePage = () => {
   const router = useRouter();
+
   const { withLoading } = useLoading();
+
   const { user } = useAuth();
 
   const signIn = () =>

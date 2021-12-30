@@ -2,7 +2,8 @@ import { useRouter } from 'next/router';
 import { MESSAGES } from '@/const/messages';
 import { useAuth } from '@/hooks/useAuth';
 import { useLoading } from '@/hooks/useLoading';
-import { auth, firestore } from '@/plugins/firebase';
+import { useToast } from '@/hooks/useToast';
+import { auth, firestore } from '@/lib/firebase';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -28,6 +29,8 @@ export const usePage = () => {
 
   const { withLoading } = useLoading();
 
+  const { showToast } = useToast();
+
   const {
     register,
     handleSubmit,
@@ -40,6 +43,7 @@ export const usePage = () => {
       if (!uid) return;
 
       await firestore.collection('lectures').add({ uid, ...data });
+      showToast({ severity: 'success', message: '講義を登録しました' });
       router.push('/dashboard');
     })
   );

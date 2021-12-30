@@ -1,5 +1,8 @@
 .next/
-yarn.lock
 *.log
 .DS_Store
 node_modules/
+public/*.js
+public/*.map
+.node-version
+.env
