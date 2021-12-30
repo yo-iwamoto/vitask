@@ -34,8 +34,9 @@ const calcCurrentDayAndPeriod = () => {
   return { day, period };
 };
 
-export const sendNotificationEmail = functions.pubsub
-  .schedule('every mon, tue, wed, thu, fri 10:10, 12:00, 14:30, 16:20, 18:10, 20:00')
+export const sendNotificationEmail = functions
+  .region('asia-northeast2')
+  .pubsub.schedule('every mon, tue, wed, thu, fri 10:10, 12:00, 14:30, 16:20, 18:10, 20:00')
   .onRun(async (_ctx) => {
     const { day, period } = calcCurrentDayAndPeriod();
 

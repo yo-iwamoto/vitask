@@ -14,7 +14,7 @@ type Data = {
   code: string;
 };
 
-export const claimAccessToken = functions.https.onCall(async ({ code }: Data, ctx) => {
+export const claimAccessToken = functions.region('asia-northeast2').https.onCall(async ({ code }: Data, ctx) => {
   // 認証されていないリクエストを弾く
   const uid = ctx.auth?.uid;
   if (!uid) {

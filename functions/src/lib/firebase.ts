@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase-admin';
 
-const admin = initializeApp();
+const admin = initializeApp({});
 
 const auth = admin.auth();
 const firestore = admin.firestore();

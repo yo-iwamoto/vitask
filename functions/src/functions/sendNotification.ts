@@ -5,7 +5,7 @@ type Data = {
   message: string;
 };
 
-export const sendNotification = functions.https.onCall(async (data: Data, ctx) => {
+export const sendNotification = functions.region('asia-northeast2').https.onCall(async (data: Data, ctx) => {
   // 認証されていないリクエストを弾く
   const uid = ctx.auth?.uid;
   if (!uid) {

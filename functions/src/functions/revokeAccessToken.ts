@@ -1,7 +1,7 @@
 import { firestore, functions } from '../lib/firebase';
 import axios from 'axios';
 
-export const revokeAccessToken = functions.https.onCall(async (_data, ctx) => {
+export const revokeAccessToken = functions.region('asia-northeast2').https.onCall(async (_data, ctx) => {
   // 認証されていないリクエストを弾く
   const uid = ctx.auth?.uid;
   if (!uid) {
