@@ -21,10 +21,10 @@ export const claimAccessToken = functions.region('asia-northeast2').https.onCall
     throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
   }
 
-  // トークンが既に発行されている場合，新規発行を行わずにエラーを投げる
+  // トークンが既に発行されている場合，新規発行を行わず終了
   const tokenDoc = await firestore.collection('lineAccessTokens').doc(uid).get();
   if (tokenDoc.exists) {
-    throw new functions.https.HttpsError('already-exists', 'access token is already exists');
+    return;
   }
 
   // トークンの発行
