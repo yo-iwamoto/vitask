@@ -19,10 +19,14 @@ const Page: NextPage = () => {
       >
         <Typography sx={{ fontSize: 60 }}>vitask</Typography>
         <Typography sx={{ textAlign: 'center', fontSize: 24 }}>
-          <span style={{ display: 'inline', whiteSpace: 'nowrap' }}>大学生のための</span>
-          <span style={{ display: 'inline', whiteSpace: 'nowrap' }}>簡単レポート管理術</span>
+          <Box component="span" display="inline" whiteSpace="nowrap">
+            大学生のための
+          </Box>
+          <Box component="span" display="inline" whiteSpace="nowrap">
+            簡単レポート管理術
+          </Box>
         </Typography>
-        <Image src="/top.png" width={300} height={300} />
+        <Image src="/img/top.png" width={300} height={300} />
         <Box
           sx={{
             display: 'inline-block',
@@ -36,7 +40,7 @@ const Page: NextPage = () => {
           onClick={signIn}
         >
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Image src="/google-login.png" width={20} height={20} />
+            <Image src="/img/google-login.png" width={20} height={20} />
             <Box sx={{ pl: 1 }}>Googleでログイン</Box>
           </Box>
         </Box>

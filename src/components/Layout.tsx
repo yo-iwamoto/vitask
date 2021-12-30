@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Toast } from '@/components/Toast';
 import { useHooks } from './Layout.hook';
 import { css } from '@emotion/react';
 import { AppBar, Box, Toolbar, Typography } from '@mui/material';
@@ -17,16 +18,16 @@ export const Layout: React.VFC<Props> = ({ children }) => {
       <AppBar position="fixed">
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Link href={user ? '/dashboard' : '/'}>
-            <Typography fontSize={24} style={{ color: 'white', cursor: 'pointer' }}>
-              vitask
+            <Typography fontSize={24} color="white" fontWeight="bold" style={{ cursor: 'pointer' }}>
+              ⏰ vitask
             </Typography>
           </Link>
           {user && <FaSignOutAlt color="white" onClick={() => signOut()} style={{ cursor: 'pointer' }} />}
         </Toolbar>
       </AppBar>
-      <main>
+      <Box component="main">
         <Box sx={{ py: 8, px: 2 }}>{children}</Box>
-      </main>
+      </Box>
       {isLoading && (
         <ClockLoader
           color={'#ffffff'}
@@ -40,6 +41,7 @@ export const Layout: React.VFC<Props> = ({ children }) => {
           `}
         />
       )}
+      <Toast />
     </>
   );
 };

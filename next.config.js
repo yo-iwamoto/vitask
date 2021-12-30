@@ -8,4 +8,11 @@ const nextConfig = {
   pageExtensions: ['page.tsx'],
 };
 
-module.exports = withPWA({ ...nextConfig, pwa: { dest: 'public', runtimeCaching } });
+const pwa = {
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  runtimeCaching,
+};
+
+module.exports = withPWA({ ...nextConfig, pwa });
