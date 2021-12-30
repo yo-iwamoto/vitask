@@ -7,5 +7,6 @@ export const ENV = {
   fromEmail: env.fromemail as string,
   mailAppPassword: env.mailapppassword as string,
   lineCallbackUrl: env.linecallbackurl as string,
+  lineCallbackUrlProd: env.linecallbackurlprod as string,
   lineClientSecret: env.lineclientsecret as string,
 };

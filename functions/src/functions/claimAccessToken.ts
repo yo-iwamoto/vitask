@@ -5,7 +5,7 @@ import axios from 'axios';
 // 固定パラメーター
 const PARAMS = {
   grant_type: 'authorization_code',
-  redirect_uri: ENV.lineCallbackUrl,
+  redirect_uri: process.env.NODE_ENV === 'production' ? ENV.lineCallbackUrlProd : ENV.lineCallbackUrl,
   client_id: 'AD5VheoYvTXjnloQSgGdQY',
   client_secret: ENV.lineClientSecret,
 } as const;
