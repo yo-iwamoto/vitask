@@ -5,7 +5,7 @@ import { useLectures } from '@/hooks/useLectures';
 import { useLoading } from '@/hooks/useLoading';
 import { useNotifyAPIAuthorization } from '@/hooks/useNotifyAPIAuthorization';
 import { useToast } from '@/hooks/useToast';
-import { firestore } from '@/plugins/firebase';
+import { firestore } from '@/lib/firebase';
 import type { Lecture } from '@/types';
 
 export const usePage = () => {

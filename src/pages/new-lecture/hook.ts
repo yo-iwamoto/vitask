@@ -3,7 +3,7 @@ import { MESSAGES } from '@/const/messages';
 import { useAuth } from '@/hooks/useAuth';
 import { useLoading } from '@/hooks/useLoading';
 import { useToast } from '@/hooks/useToast';
-import { auth, firestore } from '@/plugins/firebase';
+import { auth, firestore } from '@/lib/firebase';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';

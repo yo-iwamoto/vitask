@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { firestore } from '@/plugins/firebase';
+import { firestore } from '@/lib/firebase';
 import { Lecture } from '@/types';
 
 export const usePage = () => {

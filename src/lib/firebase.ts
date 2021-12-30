@@ -14,7 +14,7 @@ const app =
 
 export const auth = app.auth();
 export const firestore = app.firestore();
-const functions = app.functions();
+const functions = app.functions('asia-northeast2');
 
 if (process.env.NODE_ENV === 'development') {
   functions.useEmulator('localhost', 5001);

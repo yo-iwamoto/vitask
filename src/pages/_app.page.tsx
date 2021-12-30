@@ -2,7 +2,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Layout } from '@/components/Layout';
 import '../global.css';
-import { theme } from '@/plugins/mui';
+import { theme } from '@/lib/mui';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { RecoilRoot } from 'recoil';
 

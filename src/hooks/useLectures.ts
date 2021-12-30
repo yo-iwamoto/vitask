@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
-import { firestore } from '@/plugins/firebase';
+import { firestore } from '@/lib/firebase';
 import type { Lecture } from '@/types';
 
 export const useLectures = () => {

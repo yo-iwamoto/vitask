@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useLoading } from '@/hooks/useLoading';
 import { useToast } from '@/hooks/useToast';
-import { functions } from '@/plugins/firebase';
+import { functions } from '@/lib/firebase';
 
 export const usePage = () => {
   const router = useRouter();

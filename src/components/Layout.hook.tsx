@@ -1,7 +1,7 @@
 import { useAuth } from '@/hooks/useAuth';
 import { useLoading } from '@/hooks/useLoading';
 import { loadingState } from '@/state/loading';
-import { auth } from '@/plugins/firebase';
+import { auth } from '@/lib/firebase';
 import { useRecoilValue } from 'recoil';
 
 export const useHooks = () => {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { ENV } from '@/lib/env';
-import { firestore } from '@/plugins/firebase';
+import { firestore } from '@/lib/firebase';
 
 const LINE_AUTHENTICATION_URL = 'https://notify-bot.line.me/oauth/authorize';
 
