@@ -4,16 +4,11 @@ import Link from 'next/link';
 import { DAYS } from '@/const/days';
 import { Spacer } from '@/components/Spacer';
 import { usePage } from './hook';
-import { functions } from '@/lib/firebase';
 import { Box, Button, Card, Link as MuiLink, Typography } from '@mui/material';
 import { FaCheck, FaPlus, FaTrash } from 'react-icons/fa';
 
 const Page: NextPage = () => {
   const { lectures, deleteLecture, deleting, setDeleting, isNotifyAPIAuthorized, pushToRegisterPage } = usePage();
-
-  const call = () => {
-    functions.httpsCallable('test')();
-  };
 
   return (
     <>
