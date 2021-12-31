@@ -1,0 +1,9 @@
+{
+  "project-id": {
+    "lineclientsecret": "line-client-secret",
+    "mailapppassword": "gmail-app-password",
+    "fromemail": "support-gmail",
+    "linecallbackurl": "http://localhost:3000/callback",
+    "linecallbackurlprod": "https://vitask.vercel.app/callback"
+  }
+}
