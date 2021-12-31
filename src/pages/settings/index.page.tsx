@@ -5,7 +5,7 @@ import { Box, Button, Divider, IconButton, Tooltip, Typography } from '@mui/mate
 import { FaQuestionCircle } from 'react-icons/fa';
 
 const Page: NextPage = () => {
-  const { redirect, isNotifyAPIAuthorized, pushToRegistrationPage, onClickRevokeButton } = usePage();
+  const { isNotifyAPIAuthorized, onClickRevokeButton } = usePage();
 
   return (
     <Box>

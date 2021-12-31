@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { useAuth } from '@/hooks/useAuth';
 import { useFirestore } from '@/hooks/useFirebase';
 import { useLectures } from '@/hooks/useLectures';
