@@ -4,19 +4,33 @@ import Link from 'next/link';
 import { DAYS } from '@/const/days';
 import { Spacer } from '@/components/Spacer';
 import { usePage } from './hook';
-import { Box, Button, Card, Link as MuiLink, Typography } from '@mui/material';
-import { FaCheck, FaPlus, FaTrash } from 'react-icons/fa';
+import { Box, Button, Card, Typography } from '@mui/material';
+import { FaCheck, FaPlus, FaTrash, FaTimes } from 'react-icons/fa';
 
 const Page: NextPage = () => {
-  const { lectures, deleteLecture, deleting, setDeleting, isNotifyAPIAuthorized, pushToRegisterPage } = usePage();
+  const { lectures, deleteLecture, deleting, setDeleting, isNotifyAPIAuthorized, closeNotifySuggestion, close } =
+    usePage();
 
   return (
     <>
-      {!isNotifyAPIAuthorized && (
-        <Card sx={{ borderRadius: 2, backgroundColor: '#f4f4f4', p: 2, mt: 4 }}>
-          <MuiLink onClick={pushToRegisterPage} sx={{ cursor: 'pointer', display: 'inline-block' }}>
-            <Typography>🔔 LINE Notifyに登録して，授業後に通知を受け取る</Typography>
-          </MuiLink>
+      {!isNotifyAPIAuthorized && !closeNotifySuggestion && (
+        <Card
+          sx={{
+            borderRadius: 2,
+            backgroundColor: '#f4f4f4',
+            p: 2,
+            mt: 4,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Link href="/register-notification">
+            <Typography sx={{ textDecoration: 'underline', cursor: 'pointer', color: '#80C0E0' }}>
+              🔔 LINE Notifyに登録して，授業後に通知を受け取る
+            </Typography>
+          </Link>
+          <FaTimes cursor="pointer" onClick={close} />
         </Card>
       )}
       <Box sx={{ mt: 4, mx: 4 }}>
@@ -65,11 +79,11 @@ const Page: NextPage = () => {
                     <Typography paragraph sx={{ m: 0 }}>
                       {DAYS[lecture.dayId]} {lecture.period}限
                     </Typography>
-                    <Button variant="outlined" startIcon={<FaPlus size={16} />}>
+                    {/* <Button variant="outlined" startIcon={<FaPlus size={16} />}>
                       <Typography paragraph sx={{ m: 0 }}>
                         課題を追加
                       </Typography>
-                    </Button>
+                    </Button> */}
                   </Box>
                 )}
               </Box>

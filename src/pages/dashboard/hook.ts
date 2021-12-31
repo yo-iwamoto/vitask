@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/hooks/useAuth';
+import { useFirestore } from '@/hooks/useFirebase';
 import { useLectures } from '@/hooks/useLectures';
 import { useLoading } from '@/hooks/useLoading';
 import { useNotifyAPIAuthorization } from '@/hooks/useNotifyAPIAuthorization';
 import { useToast } from '@/hooks/useToast';
-import { firestore } from '@/lib/firebase';
 import type { Lecture } from '@/types';
+import { collection, deleteDoc, doc } from 'firebase/firestore';
 
 export const usePage = () => {
-  const router = useRouter();
-
   const { withLoading } = useLoading();
+  const firestore = useFirestore();
 
   const { showToast } = useToast();
 
@@ -21,7 +21,7 @@ export const usePage = () => {
 
   const deleteLecture = async (lecture: Lecture) => {
     withLoading(async () => {
-      await firestore.collection('lectures').doc(lecture.id).delete();
+      await deleteDoc(doc(collection(firestore, 'lectures'), lecture.id));
       showToast({ severity: 'error', message: '講義を削除しました' });
       await mutateLectures();
     });
@@ -31,8 +31,18 @@ export const usePage = () => {
 
   const { isNotifyAPIAuthorized } = useNotifyAPIAuthorization();
 
-  const pushToRegisterPage = () => {
-    router.push('/register-notification');
+  const [closeNotifySuggestion, setCloseNotifySuggestion] = useState(false);
+
+  useEffect(() => {
+    const closeSetting = localStorage.getItem('close_notify_suggestion');
+    if (closeSetting === 'true') {
+      setCloseNotifySuggestion(true);
+    }
+  }, []);
+
+  const close = () => {
+    localStorage.setItem('close_notify_suggestion', 'true');
+    setCloseNotifySuggestion(true);
   };
 
   return {
@@ -41,6 +51,7 @@ export const usePage = () => {
     deleting,
     setDeleting,
     isNotifyAPIAuthorized,
-    pushToRegisterPage,
+    closeNotifySuggestion,
+    close,
   };
 };

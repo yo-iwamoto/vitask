@@ -1,19 +1,20 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useFirebaseFunctions } from '@/hooks/useFirebase';
 import { useLoading } from '@/hooks/useLoading';
 import { useToast } from '@/hooks/useToast';
-import { functions } from '@/lib/firebase';
+import { httpsCallable } from 'firebase/functions';
 
 export const usePage = () => {
   const router = useRouter();
-
   const { withLoading } = useLoading();
+  const functions = useFirebaseFunctions();
 
   const { showToast } = useToast();
 
   const claimAccessToken = (payload: { code: string }) =>
     withLoading(async () => {
-      await functions.httpsCallable('claimAccessToken')(payload);
+      await httpsCallable(functions, 'claimAccessToken')(payload);
       showToast({ severity: 'success', message: 'LINE Notifyへの通知登録が完了しました' });
       await router.push('/dashboard');
     });

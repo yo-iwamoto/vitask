@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
 import { MESSAGES } from '@/const/messages';
 import { useAuth } from '@/hooks/useAuth';
+import { useFirestore } from '@/hooks/useFirebase';
 import { useLoading } from '@/hooks/useLoading';
 import { useToast } from '@/hooks/useToast';
-import { auth, firestore } from '@/lib/firebase';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { addDoc, collection } from 'firebase/firestore';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -25,7 +26,8 @@ const schema = yup
 
 export const usePage = () => {
   const router = useRouter();
-  useAuth(true);
+  const { user } = useAuth(true);
+  const firestore = useFirestore();
 
   const { withLoading } = useLoading();
 
@@ -39,10 +41,13 @@ export const usePage = () => {
 
   const onSubmit = handleSubmit((data) =>
     withLoading(async () => {
-      const uid = auth.currentUser?.uid;
-      if (!uid) return;
+      if (!user) {
+        return;
+      }
+      const uid = user.uid;
 
-      await firestore.collection('lectures').add({ uid, ...data });
+      await addDoc(collection(firestore, 'lectures'), { uid, ...data });
+
       showToast({ severity: 'success', message: '講義を登録しました' });
       router.push('/dashboard');
     })

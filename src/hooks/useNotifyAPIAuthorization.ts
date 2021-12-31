@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
+import { useFirebaseFunctions, useFirestore } from '@/hooks/useFirebase';
+import { useToast } from './useToast';
 import { ENV } from '@/lib/env';
-import { firestore } from '@/lib/firebase';
+import { collection, doc, getDoc } from 'firebase/firestore';
+import { httpsCallable } from 'firebase/functions';
 
 const LINE_AUTHENTICATION_URL = 'https://notify-bot.line.me/oauth/authorize';
 
@@ -16,6 +19,10 @@ const genRandomStr = () => Math.random().toString(32).substring(2);
 
 export const useNotifyAPIAuthorization = () => {
   const { user } = useAuth();
+  const firestore = useFirestore();
+  const functions = useFirebaseFunctions();
+
+  const { showToast } = useToast();
 
   const [isNotifyAPIAuthorized, setIsNotifyAPIAuthorized] = useState(true);
 
@@ -37,21 +44,26 @@ export const useNotifyAPIAuthorization = () => {
     if (!user) {
       return;
     }
-    firestore
-      .collection('lineAccessTokens')
-      .doc(user.uid)
-      .get()
-      .then((res) => {
-        if (res.exists) {
-          return;
-        }
 
-        setIsNotifyAPIAuthorized(false);
-      });
+    (async () => {
+      const res = await getDoc(doc(collection(firestore, 'lineAccessTokens'), user.uid));
+      if (res.exists()) {
+        return;
+      }
+
+      setIsNotifyAPIAuthorized(false);
+    })();
   }, [user]);
+
+  const revokeToken = async () => {
+    await httpsCallable(functions, 'revokeAccessToken')();
+    showToast({ severity: 'error', message: '通知設定を解除しました' });
+    setIsNotifyAPIAuthorized(false);
+  };
 
   return {
     isNotifyAPIAuthorized,
     redirect,
+    revokeToken,
   };
 };

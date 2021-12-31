@@ -1,9 +1,9 @@
 import Link from 'next/link';
+import { Menu } from '@/components/Menu';
 import { Toast } from '@/components/Toast';
 import { useHooks } from './Layout.hook';
 import { css } from '@emotion/react';
 import { AppBar, Box, Toolbar, Typography } from '@mui/material';
-import { FaSignOutAlt } from 'react-icons/fa';
 import { ClockLoader } from 'react-spinners';
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const Layout: React.VFC<Props> = ({ children }) => {
-  const { isLoading, user, signOut } = useHooks();
+  const { isLoading, user } = useHooks();
 
   return (
     <>
@@ -22,7 +22,7 @@ export const Layout: React.VFC<Props> = ({ children }) => {
               ⏰ vitask
             </Typography>
           </Link>
-          {user && <FaSignOutAlt color="white" onClick={() => signOut()} style={{ cursor: 'pointer' }} />}
+          {user && <Menu />}
         </Toolbar>
       </AppBar>
       <Box component="main">

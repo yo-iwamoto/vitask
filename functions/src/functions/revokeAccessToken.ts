@@ -17,7 +17,7 @@ export const revokeAccessToken = functions.region('asia-northeast2').https.onCal
 
   // トークンの失効
   await axios
-    .post('https://notify-api.line.me/api./revoke', null, {
+    .post('https://notify-api.line.me/api/revoke', null, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         Authorization: `Bearer ${tokenDocData.lineAccessToken}`,

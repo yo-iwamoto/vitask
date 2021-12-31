@@ -1,19 +1,20 @@
 import { useRouter } from 'next/router';
 import { useAuth } from '@/hooks/useAuth';
+import { useFirebaseAuth } from '@/hooks/useFirebase';
 import { useLoading } from '@/hooks/useLoading';
-import { auth, googleAuthProvider } from '@/lib/firebase';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
 export const usePage = () => {
   const router = useRouter();
-
   const { withLoading } = useLoading();
+  const auth = useFirebaseAuth();
 
   const { user } = useAuth();
 
   const signIn = () =>
     withLoading(async () => {
       if (!user) {
-        const res = await auth.signInWithPopup(googleAuthProvider).catch((err) => {
+        const res = await signInWithPopup(auth, new GoogleAuthProvider()).catch((err) => {
           alert('ログインに失敗しました');
           console.log(err);
         });
