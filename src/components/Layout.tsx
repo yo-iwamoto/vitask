@@ -1,9 +1,10 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { Menu } from '@/components/Menu';
 import { Toast } from '@/components/Toast';
 import { useHooks } from './Layout.hook';
 import { css } from '@emotion/react';
-import { AppBar, Box, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Toolbar } from '@mui/material';
 import { ClockLoader } from 'react-spinners';
 
 type Props = {
@@ -15,12 +16,10 @@ export const Layout: React.VFC<Props> = ({ children }) => {
 
   return (
     <>
-      <AppBar position="fixed">
+      <AppBar position="fixed" color="primary">
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Link href={user ? '/dashboard' : '/'}>
-            <Typography fontSize={24} color="white" fontWeight="bold" style={{ cursor: 'pointer' }}>
-              ⏰ vitask
-            </Typography>
+            <Image src="/img/vitask_logo.png" height={40} width={100} />
           </Link>
           {user && <Menu />}
         </Toolbar>

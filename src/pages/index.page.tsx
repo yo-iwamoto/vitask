@@ -17,8 +17,8 @@ const Page: NextPage = () => {
           alignItems: 'center',
         }}
       >
-        <Typography sx={{ fontSize: 60 }}>vitask</Typography>
-        <Typography sx={{ textAlign: 'center', fontSize: 24 }}>
+        <Image src="/img/vitask_logo.png" height={60} width={150} />
+        <Typography my={3} textAlign="center" fontSize={24}>
           <Box component="span" display="inline" whiteSpace="nowrap">
             大学生のための
           </Box>
@@ -26,7 +26,9 @@ const Page: NextPage = () => {
             簡単レポート管理術
           </Box>
         </Typography>
-        <Image src="/img/top.png" width={300} height={300} />
+        <Box sx={{ transform: 'translateY(-40px)' }}>
+          <Image src="/img/top.png" width={300} height={300} />
+        </Box>
         <Box
           sx={{
             display: 'inline-block',
