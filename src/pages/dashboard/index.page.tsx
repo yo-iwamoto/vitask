@@ -26,7 +26,7 @@ const Page: NextPage = () => {
           }}
         >
           <Link href="/register-notification">
-            <Typography sx={{ textDecoration: 'underline', cursor: 'pointer', color: '#80C0E0' }}>
+            <Typography sx={{ textDecoration: 'underline', cursor: 'pointer', color: '#FDC731' }}>
               🔔 LINE Notifyに登録して，授業後に通知を受け取る
             </Typography>
           </Link>
@@ -88,7 +88,7 @@ const Page: NextPage = () => {
                 )}
               </Box>
             ))}
-          {lectures?.length == 0 && deleting !== 'lecture' && (
+          {lectures?.length === 0 && deleting !== 'lecture' && (
             <Box display="flex" flexDirection="column" textAlign="center">
               <Box sx={{ display: 'inline-block' }}>
                 <Image src="/img/empty.png" width={300} height={300} />

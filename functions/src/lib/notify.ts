@@ -9,12 +9,18 @@ export const notify = async ({ uid, message }: { uid: string; message: string })
   }
 
   // data.messageをメッセージとして通知する
-  await axios
+  const res = await axios
     .post('https://notify-api.line.me/api/notify', new URLSearchParams({ message }), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         Authorization: `Bearer ${tokenDocData.lineAccessToken}`,
       },
     })
-    .catch((err) => console.log(err));
+    .catch((err) => functions.logger.error(err));
+
+  if (!res) {
+    return;
+  }
+
+  functions.logger.info(`LINE Notification send to user with uid: ${uid}`);
 };

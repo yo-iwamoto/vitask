@@ -19,7 +19,9 @@ export const Layout: React.VFC<Props> = ({ children }) => {
       <AppBar position="fixed" color="primary">
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Link href={user ? '/dashboard' : '/'}>
-            <Image src="/img/vitask_logo.png" height={40} width={100} />
+            <a>
+              <Image src="/img/vitask_logo.png" height={40} width={100} />
+            </a>
           </Link>
           {user && <Menu />}
         </Toolbar>
@@ -36,7 +38,7 @@ export const Layout: React.VFC<Props> = ({ children }) => {
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 4;
-            background-color: #80c0e0;
+            background-color: #fdc731;
           `}
         />
       )}
