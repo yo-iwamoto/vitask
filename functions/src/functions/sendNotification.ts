@@ -13,31 +13,39 @@ const buildFunction = (time: string, period: number) =>
       const day = new Date().getDay();
 
       // 呼び出された時刻に終了した講義を取得
-      firestore
+      const endedLectures = await firestore
         .collection('lectures')
         .where('dayId', '==', day)
         .where('period', '==', period)
-        .get()
-        .then((result) => {
-          result.docs.forEach(async (doc) => {
-            const data = doc.data() as LectureDocument;
-            const sameUserLectures = await firestore
-              .collection('lectures')
-              .where('dayId', '==', day)
-              .where('uid', '==', data.uid)
-              .get();
-            // 現在終了した講義より後に講義がある場合，離脱
-            if (sameUserLectures.docs.map((doc) => (doc.data() as LectureDocument).period > data.period).length) {
-              return;
-            }
+        .get();
 
-            // LINE Notifyにて通知
-            notify({
-              uid: data.uid,
-              message: buildTemplate(sameUserLectures.docs.map((doc) => doc.data() as LectureDocument)),
-            });
-          });
+      // const tasks: Promise<void>[] = [];
+
+      const tasks = endedLectures.docs.map(async (doc) => {
+        const data = doc.data() as LectureDocument;
+        functions.logger.info('ended lecture found', data);
+        const sameUserLectures = await firestore
+          .collection('lectures')
+          .where('dayId', '==', day)
+          .where('uid', '==', data.uid)
+          .get();
+        // 現在終了した講義より後に講義がある場合，離脱
+        functions.logger.info('same user lectures', sameUserLectures);
+        if (sameUserLectures.docs.map((doc) => (doc.data() as LectureDocument).period > data.period).length) {
+          return;
+        }
+
+        functions.logger.info('send notification to this uid', data.uid);
+
+        // LINE Notifyにて通知
+        await notify({
+          uid: data.uid,
+          message: buildTemplate(sameUserLectures.docs.map((doc) => doc.data() as LectureDocument)),
         });
+      });
+
+      await Promise.all(tasks);
+      functions.logger.log('successfully finish the job');
     });
 
 /**
