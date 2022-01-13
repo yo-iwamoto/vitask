@@ -8,21 +8,17 @@ export const buildTemplate = (lectures: LectureDocument[]) => {
   const defaultToDate = `${now.getFullYear()}${('0' + now.getMonth()).slice(-2)}${('0' + now.getDate()).slice(-2)}`;
 
   let body = ''
-    .concat('<body style="padding-inline: 30px;">')
-    .concat('<h1>vitask</h1>')
-    .concat('<p>今日も勉強お疲れ様です！</p>')
-    .concat('<p>課題が出ているなら、今のうちにカレンダーに登録しましょう！</p>')
-    .concat('<p>下のリンクからそれぞれの講義の課題を簡単に登録できます。</p>');
+    .concat('\n今日も勉強お疲れ様です！\n')
+    .concat('課題が出ているなら、今のうちにカレンダーに登録しましょう！\n')
+    .concat('下のリンクからそれぞれの講義の課題を簡単に登録できます。\n');
 
   lectures.map((item) => {
     body = body
-      .concat(`<p style="font-weight: bold;">${item.name}</p>`)
+      .concat(`\n${item.name}\n`)
       .concat(
-        `<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=〆${item.name}レポート&dates=${defaultFromDate}/${defaultToDate}" target="_blank" rel="noopener noreferrer">Googleカレンダーに登録</a>`
+        `https://calendar.google.com/calendar/render?action=TEMPLATE&text=〆${item.name}レポート&dates=${defaultFromDate}/${defaultToDate}\n`
       );
   });
-
-  body = body.concat('</body>');
 
   return body;
 };

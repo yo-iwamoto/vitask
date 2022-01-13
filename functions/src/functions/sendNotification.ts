@@ -19,23 +19,17 @@ const buildFunction = (time: string, period: number) =>
         .where('period', '==', period)
         .get();
 
-      // const tasks: Promise<void>[] = [];
-
       const tasks = endedLectures.docs.map(async (doc) => {
         const data = doc.data() as LectureDocument;
-        functions.logger.info('ended lecture found', data);
         const sameUserLectures = await firestore
           .collection('lectures')
           .where('dayId', '==', day)
           .where('uid', '==', data.uid)
           .get();
         // 現在終了した講義より後に講義がある場合，離脱
-        functions.logger.info('same user lectures', sameUserLectures);
-        if (sameUserLectures.docs.map((doc) => (doc.data() as LectureDocument).period > data.period).length) {
+        if (sameUserLectures.docs.filter((doc) => (doc.data() as LectureDocument).period > data.period).length) {
           return;
         }
-
-        functions.logger.info('send notification to this uid', data.uid);
 
         // LINE Notifyにて通知
         await notify({
@@ -53,8 +47,13 @@ const buildFunction = (time: string, period: number) =>
  * schedule構文で1日未満の不定期実行が表現できないため，それぞれ別個の関数としてデプロイ．
  */
 export const sendNotificationForFirstClass = buildFunction('10:10', 1);
+
 export const sendNotificationForSecondClass = buildFunction('12:00', 2);
+
 export const sendNotificationForThirdClass = buildFunction('14:30', 3);
+
 export const sendNotificationForFourthClass = buildFunction('16:20', 4);
+
 export const sendNotificationForFifthlass = buildFunction('18:10', 5);
+
 export const sendNotificationForSixthClass = buildFunction('20:00', 6);
