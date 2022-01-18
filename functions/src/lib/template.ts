@@ -3,9 +3,13 @@ import { LectureDocument } from '../types';
 export const buildTemplate = (lectures: LectureDocument[]) => {
   const now = new Date();
   now.setDate(now.getDate() + 7);
-  const defaultFromDate = `${now.getFullYear()}${('0' + now.getMonth()).slice(-2)}${('0' + now.getDate()).slice(-2)}`;
+  const defaultFromDate = `${now.getFullYear()}${('0' + (now.getMonth() + 1)).slice(-2)}${('0' + now.getDate()).slice(
+    -2
+  )}`;
   now.setDate(now.getDate() + 1);
-  const defaultToDate = `${now.getFullYear()}${('0' + now.getMonth()).slice(-2)}${('0' + now.getDate()).slice(-2)}`;
+  const defaultToDate = `${now.getFullYear()}${('0' + (now.getMonth() + 1)).slice(-2)}${('0' + now.getDate()).slice(
+    -2
+  )}`;
 
   let body = ''
     .concat('\n今日も勉強お疲れ様です！\n')
